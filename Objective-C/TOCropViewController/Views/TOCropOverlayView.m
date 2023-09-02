@@ -53,7 +53,7 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 - (void)setup
 {
     UIView *(^newLineView)(void) = ^UIView *(void){
-        return [self createNewLineView];
+        return [self createNewLineView:UIColor.blackColor]; // меняем цвет угловых линий
     };
 
     _outerLineViews     = @[newLineView(), newLineView(), newLineView(), newLineView()];
@@ -192,7 +192,7 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }];
     
     if (_displayHorizontalGridLines) {
-        self.horizontalGridLines = @[[self createNewLineView], [self createNewLineView]];
+        self.horizontalGridLines = @[[self createNewLineView:nil], [self createNewLineView:nil], [self createNewLineView:nil]]; // добавляем количество линий
     } else {
         self.horizontalGridLines = @[];
     }
@@ -207,7 +207,7 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }];
     
     if (_displayVerticalGridLines) {
-        self.verticalGridLines = @[[self createNewLineView], [self createNewLineView]];
+        self.verticalGridLines = @[[self createNewLineView:nil], [self createNewLineView:nil], [self createNewLineView:nil]]; // добавляем количество линий
     } else {
         self.verticalGridLines = @[];
     }
@@ -221,9 +221,9 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 
 #pragma mark - Private methods
 
-- (nonnull UIView *)createNewLineView {
+- (nonnull UIView *)createNewLineView:(UIColor *)color {
     UIView *newLine = [[UIView alloc] initWithFrame:CGRectZero];
-    newLine.backgroundColor = [UIColor whiteColor];
+    newLine.backgroundColor = color? : [UIColor grayColor]; // изменяем цвет мелких линий сетки
     [self addSubview:newLine];
     return newLine;
 }
