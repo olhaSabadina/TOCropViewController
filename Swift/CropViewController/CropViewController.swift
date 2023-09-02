@@ -474,6 +474,8 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
         return UIRectEdge.all
     }
     
+    open var myView: UIView? // создали сове вью для кропа (типа топ вью в проекте имейджсерч)
+    
     // ------------------------------------------------
     /// @name Object Creation
     // ------------------------------------------------
@@ -512,12 +514,20 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
         if toCropViewController.view.superview == nil {
             view.addSubview(toCropViewController.view)
         }
+        guard let myView = myView else {return}
+        toCropViewController.view.addSubview(myView)
     }
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        toCropViewController.view.frame = view.bounds
-        toCropViewController.viewDidLayoutSubviews()
+        if let myView = myView {
+            //        toCropViewController.view.frame = view.bounds
+            //        toCropViewController.viewDidLayoutSubviews()
+            toCropViewController.view.frame = view.bounds
+            myView.frame = CGRect(x: 0, y: 30, width: view.bounds.width, height: 80)
+        } else {
+            toCropViewController.view.frame = view.bounds
+        }
     }
 
     /**
@@ -625,6 +635,8 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
 
 extension CropViewController {
     fileprivate func setUpCropController() {
+        view.backgroundColor = .clear
+        toCropViewController.cropView.backgroundColor = .clear
         modalPresentationStyle = .fullScreen
         addChild(toCropViewController)
         transitioningDelegate = (toCropViewController as! UIViewControllerTransitioningDelegate)
