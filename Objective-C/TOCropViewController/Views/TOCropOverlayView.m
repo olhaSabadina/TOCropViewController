@@ -22,7 +22,7 @@
 
 #import "TOCropOverlayView.h"
 
-static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
+static const CGFloat kTOCropOverLayerCornerWidth = 50.0f;
 
 @interface TOCropOverlayView ()
 
@@ -132,7 +132,7 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }
     
     //grid lines - horizontal
-    CGFloat thickness = 1.0f / [[UIScreen mainScreen] scale];
+    CGFloat thickness = 5.0f / [[UIScreen mainScreen] scale];
     NSInteger numberOfLines = self.horizontalGridLines.count;
     CGFloat padding = (CGRectGetHeight(self.bounds) - (thickness*numberOfLines)) / (numberOfLines + 1);
     for (NSInteger i = 0; i < numberOfLines; i++) {
